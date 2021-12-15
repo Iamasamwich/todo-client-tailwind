@@ -6,7 +6,7 @@ const Context = React.createContext({} as iContext);
 export default Context;
 
 const initialState : iState = {
-  page: 'login',
+  page: 'home',
   login: false,
   appStatus: null,
   showTodos: 'active',
