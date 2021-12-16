@@ -4,6 +4,7 @@ import Context from '../context/Context';
 import CreateAccount from './CreateAccount';
 import Layout from './Layout';
 import Login from './Login';
+import Status from './Status';
 
 const App = () => {
   const {login, page, loginDispatch} = useContext(Context);
@@ -46,6 +47,7 @@ const App = () => {
 
   return (
     <Layout>
+      <Status />
       <ShowPage />
     </Layout>
   );

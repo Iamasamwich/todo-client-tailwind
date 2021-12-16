@@ -4,7 +4,7 @@ const loginReducer = (state : boolean, action : iAction) => {
       return action.payload;
     default:
       return state;
-  }
+  };
 };
 
 export default loginReducer;

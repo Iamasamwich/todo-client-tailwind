@@ -30,9 +30,12 @@ const Login = () => {
     };
 
     if (anyError) return;
-
+    appStatusDispatch({type: 'STATUS', payload: 'loading'});
     loginAction({email, pword})
-    .then(() => loginDispatch({type: 'LOGIN', payload: true}))
+    .then(() => {
+      appStatusDispatch({type: 'STATUS', payload: null});
+      loginDispatch({type: 'LOGIN', payload: true})
+    })
     .catch((res : iRes) => {
       loginDispatch({type: 'LOGIN', payload: false});
       appStatusDispatch({type: 'STATUS', payload: res.status})
