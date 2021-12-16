@@ -4,6 +4,7 @@ import Context from '../context/Context';
 import CreateAccount from './CreateAccount';
 import Layout from './Layout';
 import Login from './Login';
+import ShowTodos from './ShowTodos';
 import Status from './Status';
 
 const App = () => {
@@ -40,7 +41,7 @@ const App = () => {
         case 'updatePassword':
           return <div>updatepassword</div>
         default:
-          return <div>Show todos</div>
+          return <ShowTodos />
       };
     };
   };

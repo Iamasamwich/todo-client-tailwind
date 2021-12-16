@@ -70,6 +70,10 @@ interface iRes {
   message: string;
 };
 
+interface iTodoRes extends iRes {
+  todos: iTodoWithSteps[];
+};
+
 type iAction = 
   {
     type: 'SHOW_TODOS';
@@ -113,7 +117,10 @@ type iAction =
   } |
   { 
     type: 'REMOVE_STEP';
-    payload: number;
+    payload: {
+      todoId: number;
+      stepId: number;
+    };
   } |
   {
     type: 'TODOS_FETCHED';

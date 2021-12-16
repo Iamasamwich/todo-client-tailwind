@@ -102,9 +102,9 @@ const CreateAccount = () => {
         }
         <ButtonGroup>
           {!anyError && 
-            <Button styling={`${styles.button} ${styles.success}`} text='Submit' handleClick={handleSubmit} />
+            <Button styling={`${styles.button} ${styles.success}`} text='SUBMIT' handleClick={handleSubmit} />
           }
-          <Button styling={`${styles.button} ${styles.warning}`} text='Cancel' handleClick={handleCancel} />
+          <Button styling={`${styles.button} ${styles.warning}`} text='CANCEL' handleClick={handleCancel} />
         </ButtonGroup>
       </form>  
     

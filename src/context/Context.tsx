@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import loginReducer from './loginReducer';
 import pageReducer from './pageReducer';
 import statusReducer from './statusReducer';
+import todosFetchedReducer from './todosFetchedReducer';
 
 const Context = React.createContext({} as iContext);
 
@@ -15,7 +16,7 @@ export const Store = ({children} : {children: React.ReactNode}) => {
   const [login, loginDispatch] = useReducer(loginReducer, false);
   const [page, pageDispatch] = useReducer(pageReducer, 'home');
   const [appStatus, appStatusDispatch] = useReducer(statusReducer, null);
-  const [todosFetched, todosFetchedDispatch] = useReducer(reducer, false);
+  const [todosFetched, todosFetchedDispatch] = useReducer(todosFetchedReducer, false);
   const [todos, todosDispatch] = useReducer(reducer, [] as iTodoWithSteps[]);
   const [todoToUpdate, todoToUpdateDispatch] = useReducer(reducer, null);
   const [showTodos, showTodosDispatch] = useReducer(reducer, 'active');

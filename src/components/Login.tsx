@@ -76,7 +76,7 @@ const Login = () => {
         <ButtonGroup>
           {!anyError && 
             <Button 
-              text='Submit'
+              text='LOG IN'
               styling={`${styles.button} ${styles.success}`}
               handleClick={handleSubmit}
             />
