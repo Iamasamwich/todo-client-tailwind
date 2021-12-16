@@ -5,7 +5,8 @@ import HomeIcon from '@heroicons/react/solid/HomeIcon';
 import MenuIcon from '@heroicons/react/solid/MenuIcon';
 
 const Navbar = () => {
-  const {state, dispatch} = useContext(Context);
+  const {login, page, loginDispatch, pageDispatch} = useContext(Context);
+
   const [showMenu, setShowMenu] = useState (false);;
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
@@ -21,13 +22,16 @@ const Navbar = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+  }, [showMenu]);
+
   return (
     <div className='container bg-sky-400 flex flex-row items-center gap-2 pr-2'>
       <p className='font-sans p-4 text-white flex-grow'>
-        {state.login ? 'Welcome back!' : 'Log in or create an account'}
+        {login ? 'Welcome back!' : 'Log in or create an account'}
       </p>
-      {state.page !== 'home' && <HomeIcon className='h-6 w-6 text-white' />}
-      {state.login && <MenuIcon className='h-6 w-6 text-white' />}
+      {page !== 'home' && <HomeIcon onClick={() => pageDispatch({type: 'CHANGE_PAGE', payload: 'home'})}className='h-6 w-6 text-white' />}
+      {login && <MenuIcon onClick={() => loginDispatch({type: "LOGIN", payload: false})}className='h-6 w-6 text-white' />}
     </div>
   );
 };

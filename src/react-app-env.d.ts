@@ -21,6 +21,14 @@ interface iTodoWithSteps extends iTodo {
   steps: iSteps[];
 };
 
+type page = string;
+type login = boolean;
+type appStatus = string | number | null;
+type todos = iTodoWithSteps[];
+type showTodos = 'active' | 'all';
+type todosFetched = boolean;
+type todoToUpdate = iTodoWithSteps | null;
+
 interface iState {
   page: string;
   login: boolean;
@@ -32,8 +40,20 @@ interface iState {
 };
 
 interface iContext {
-  state: iState;
-  dispatch: (action : iAction) => void;
+  page: page;
+  login: boolean;
+  appStatus: appStatus;
+  todos: todos;
+  showTodos: showTodos;
+  todosFetched: todosFetched;
+  todoToUpdate: todoToUpdate;
+  loginDispatch: (action : iAction) => void;
+  pageDispatch: (action : iAction) => void;
+  appStatusDispatch: (action : iAction) => void;
+  todosDispatch: (action : iAction) => void;
+  showTodosDispatch: (action : iAction) => void;
+  todosFetchedDispatch: (action : iAction) => void;
+  todoToUpdateDispatch: (action : iAction) => void;
 };
 
 interface iBody {

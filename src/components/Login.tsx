@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { loginAction } from '../actions/login';
 import Context from '../context/Context';
+import styles from '../styles/styles';
 
 const Login = () => {
-  const {state, dispatch} = useContext(Context);
+  const {loginDispatch, appStatusDispatch, pageDispatch} = useContext(Context);
 
   const [email, setEmail] = useState('');
   const [pword, setPword] = useState('');
@@ -16,26 +18,66 @@ const Login = () => {
     setPwordError(pword ? false : true);
   }, [email, pword]);
 
+  useEffect(() => {
+    setAnyError(emailError || pwordError ? true : false);
+  }, [emailError, pwordError]);
+
   const handleSubmit = (e : React.SyntheticEvent) => {
     e.preventDefault();
-    console.log({email, pword});
+    if (anyError) return;
+
+    loginAction({email, pword})
+    .then(() => loginDispatch({type: 'LOGIN', payload: true}))
+    .catch((res : iRes) => {
+      loginDispatch({type: 'LOGIN', payload: false});
+      appStatusDispatch({type: 'STATUS', payload: res.status})
+      return;
+    });
   };
 
   return (
-    <div className='container bg-slate-200'>
-      <form className='flex flex-col pr-3 pl-3' onSubmit={handleSubmit}>
+    <div>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <label>Email</label>
         <input 
           value={email} 
           onChange={e => setEmail(e.target.value)} 
-          className={`${emailError && 'bg-red-100 border-red-500'}`}
+          className={`${emailError && styles.inputError}`}
         />
+        {emailError && 
+          <p
+            className={styles.inputAdvice}
+          >
+            Input a valid email address
+          </p>
+        }
         <label>Password</label>
-        <input type='password' value={pword} onChange={e => setPword(e.target.value)} />
-        <button type='submit'>Submit</button>
-
+        <input 
+          type='password' 
+          value={pword} 
+          onChange={e => setPword(e.target.value)} 
+          className={`${pwordError && styles.inputError}`}  
+        />
+        {pwordError && 
+          <p
+            className={styles.inputAdvice}
+          >
+            Enter your password
+          </p>
+        }
+        {!anyError && 
+          <button 
+            type='submit' 
+            className={`${styles.button} ${styles.success}`}
+          >Submit</button>
+        }
       </form>
-
+      <div className='container flex flex-row justify-center'>
+        <p 
+          className={styles.fakeLink}
+          onClick={() => pageDispatch({type: 'CHANGE_PAGE', payload: 'createAccount'})}
+        >Create Account</p>
+      </div>
     </div>
   )
 };

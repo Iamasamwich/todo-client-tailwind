@@ -5,30 +5,30 @@ import Layout from './Layout';
 import Login from './Login';
 
 const App = () => {
-  const {state, dispatch} = useContext(Context);
+  const {login, page, loginDispatch} = useContext(Context);
 
   useEffect(() => {
     api('/ping', 'GET')
     .then((resp : iRes) => {
       if (resp.status === 200 && resp.message === 'ok') {
-        dispatch({type: 'LOGIN', payload: true});
+        loginDispatch({type: 'LOGIN', payload: true});
       } else {
-        dispatch({type: 'LOGIN', payload: false});
+        loginDispatch({type: 'LOGIN', payload: false});
       };
     })
     .catch(err => {});
-  }, [dispatch]);
+  }, [loginDispatch]);
 
   const ShowPage = () => {
-    if (!state.login) {
-      switch (state.page) {
+    if (!login) {
+      switch (page) {
         case 'createAccount':
           return <div>Create account</div>;
         default:
           return <Login />;
       };
     } else {
-      switch (state.page) {
+      switch (page) {
         case 'addTodo':
           return <div>Add todo</div>
         case 'editTodo':

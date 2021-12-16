@@ -1,13 +1,8 @@
-import React, { useContext } from 'react';
-import Context from '../context/Context';
+import React from 'react';
 import Navbar from './Navbar';
 import icon from '../assets/icon.png';
 
 const Layout = ({children} : {children: React.ReactNode}) => {
-
-  const {state, dispatch } = useContext(Context);
-  const {login, page} = state;
-  // const {logout, changePage} = dispatch;
 
   return (
     <div className='container'>
