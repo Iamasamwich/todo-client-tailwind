@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import api from '../api';
 import Context from '../context/Context';
+import CreateAccount from './CreateAccount';
 import Layout from './Layout';
 import Login from './Login';
 
@@ -23,7 +24,7 @@ const App = () => {
     if (!login) {
       switch (page) {
         case 'createAccount':
-          return <div>Create account</div>;
+          return <CreateAccount />
         default:
           return <Login />;
       };

@@ -31,7 +31,14 @@ const Navbar = () => {
         {login ? 'Welcome back!' : 'Log in or create an account'}
       </p>
       {page !== 'home' && <HomeIcon onClick={() => pageDispatch({type: 'CHANGE_PAGE', payload: 'home'})}className='h-6 w-6 text-white' />}
-      {login && <MenuIcon onClick={() => loginDispatch({type: "LOGIN", payload: false})}className='h-6 w-6 text-white' />}
+      {login && 
+        <MenuIcon 
+          onClick={() => {
+            loginDispatch({type: "LOGIN", payload: false});
+            pageDispatch({type: 'CHANGE_PAGE', payload: 'home'});
+          }} 
+          className='h-6 w-6 text-white' 
+        />}
     </div>
   );
 };

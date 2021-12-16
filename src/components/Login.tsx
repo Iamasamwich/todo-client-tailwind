@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { loginAction } from '../actions/login';
 import Context from '../context/Context';
 import styles from '../styles/styles';
+import Button from './subComponents/Button';
+import ButtonGroup from './subComponents/ButtonGroup';
 
 const Login = () => {
   const {loginDispatch, appStatusDispatch, pageDispatch} = useContext(Context);
@@ -22,8 +24,11 @@ const Login = () => {
     setAnyError(emailError || pwordError ? true : false);
   }, [emailError, pwordError]);
 
-  const handleSubmit = (e : React.SyntheticEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e ?: React.SyntheticEvent) => {
+    if (e) {
+      e.preventDefault();
+    };
+
     if (anyError) return;
 
     loginAction({email, pword})
@@ -42,7 +47,7 @@ const Login = () => {
         <input 
           value={email} 
           onChange={e => setEmail(e.target.value)} 
-          className={`${emailError && styles.inputError}`}
+          className={`${styles.input} ${emailError && styles.inputError}`}
         />
         {emailError && 
           <p
@@ -56,7 +61,7 @@ const Login = () => {
           type='password' 
           value={pword} 
           onChange={e => setPword(e.target.value)} 
-          className={`${pwordError && styles.inputError}`}  
+          className={`${styles.input} ${pwordError && styles.inputError}`}  
         />
         {pwordError && 
           <p
@@ -65,12 +70,15 @@ const Login = () => {
             Enter your password
           </p>
         }
-        {!anyError && 
-          <button 
-            type='submit' 
-            className={`${styles.button} ${styles.success}`}
-          >Submit</button>
-        }
+        <ButtonGroup>
+          {!anyError && 
+            <Button 
+              text='Submit'
+              styling={`${styles.button} ${styles.success}`}
+              handleClick={handleSubmit}
+            />
+          }
+        </ButtonGroup>
       </form>
       <div className='container flex flex-row justify-center'>
         <p 
