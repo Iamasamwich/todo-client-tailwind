@@ -14,7 +14,7 @@ interface iNewTodo {
 
 interface iTodo extends iNewTodo{
   id: number;
-  done: string;
+  done: boolean;
 };
 
 interface iTodoWithSteps extends iTodo {

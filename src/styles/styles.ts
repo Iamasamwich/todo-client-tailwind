@@ -8,6 +8,7 @@ const styles = {
   modal: 'absolute top-0 w-full h-full flex items-center justify-center z-10 bg-slate-600/50',
   success: 'bg-green-400',
   warning: 'bg-orange-400',
+  normal: 'bg-blue-400'
 };
 
 export default styles;

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import api from '../api';
 import Context from '../context/Context';
+import AddTodo from './AddTodo';
 import CreateAccount from './CreateAccount';
 import Layout from './Layout';
 import Login from './Login';
@@ -33,7 +34,7 @@ const App = () => {
     } else {
       switch (page) {
         case 'addTodo':
-          return <div>Add todo</div>
+          return <AddTodo />
         case 'editTodo':
           return <div>edit todo</div>
         case 'editUser':
