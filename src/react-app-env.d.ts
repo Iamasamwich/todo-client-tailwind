@@ -74,6 +74,10 @@ interface iTodoRes extends iRes {
   todos: iTodoWithSteps[];
 };
 
+interface iTodoNewRes extends iRes {
+  todo: iTodoWithSteps;
+};
+
 type iAction = 
   {
     type: 'SHOW_TODOS';

@@ -7,3 +7,11 @@ export const getTodosAction = async () => {
     return res;
   });
 };
+
+export const addTodoAction = async (body : {todo: string, dueDate : string}) => {
+  return await api('/todo', 'POST', {...body, done: false})
+  .then((res : iTodoNewRes) => {
+    if (res.status !== 201) throw res;
+    return res;
+  });
+};

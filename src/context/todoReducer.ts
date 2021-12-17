@@ -11,7 +11,7 @@ const todoReducer = (
     case 'SET_TODOS':
       return sortTodos(action.payload);
     case 'ADD_TODO': 
-      return [...state, action.payload]
+      return [...state, action.payload];
     case 'UPDATE_TODO':
       const updatedTodos = state.map(todo => {
         if (todo.id !== action.payload.id) {
