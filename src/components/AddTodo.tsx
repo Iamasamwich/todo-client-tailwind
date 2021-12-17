@@ -8,12 +8,20 @@ import ButtonGroup from './subComponents/ButtonGroup';
 const AddTodo = () => {
 
   const {pageDispatch, appStatusDispatch, todosDispatch} = useContext(Context);
+  
+  const today = () => {
+    const d = new Date();
+    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+  };
 
   const [todo, setTodo] = useState('');
   const [todoError, setTodoError] = useState(false);
-  const [dueDate, setDueDate] = useState('');
+  const [dueDate, setDueDate] = useState(today());
   const [dueDateError, setDueDateError] = useState(false);
   const [anyError, setAnyError] = useState(false);
+
+
+  today();
 
   useEffect(() => {
     setTodoError(!todo ? true : false);
@@ -35,8 +43,6 @@ const AddTodo = () => {
     appStatusDispatch({type: 'STATUS', payload: 'loading'});
     addTodoAction({todo, dueDate})
     .then(res => {
-      console.log(res);
-      
       appStatusDispatch({type: 'STATUS', payload: null});
       todosDispatch({type: 'ADD_TODO', payload: res.todo});
       pageDispatch({type: 'CHANGE_PAGE', payload: 'home'});

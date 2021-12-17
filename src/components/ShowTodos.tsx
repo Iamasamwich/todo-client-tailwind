@@ -4,6 +4,7 @@ import Context from '../context/Context';
 import styles from '../styles/styles';
 import Button from './subComponents/Button';
 import ButtonGroup from './subComponents/ButtonGroup';
+import Todo from './Todo';
 
 const ShowTodos = () => {
 
@@ -32,7 +33,6 @@ const ShowTodos = () => {
         appStatusDispatch({type: 'STATUS', payload: err.status});
       });
     };
-
     if (!todosFetched) {
       getTodos();
     };
@@ -49,7 +49,7 @@ const ShowTodos = () => {
   }, [todos, showTodos])
 
   return (
-    <>
+    <div className='container flex flex-col none p-4'>
       <ButtonGroup>
         <Button
           styling={`${styles.button} ${styles.success}`} 
@@ -62,8 +62,11 @@ const ShowTodos = () => {
           handleClick={() => showTodosDispatch({type: 'SHOW_TODOS', payload: showTodos === 'all' ? 'active' : 'all'})}
         />
       </ButtonGroup>
-      {selectedTodos.length}
-    </>
+      {selectedTodos.map(todo => {
+        console.log(todo);
+        return <Todo key={todo.id} todo={todo} />
+      })}
+    </div>
   );
 };
 
