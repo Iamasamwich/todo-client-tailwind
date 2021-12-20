@@ -63,7 +63,6 @@ const ShowTodos = () => {
         />
       </ButtonGroup>
       {selectedTodos.map(todo => {
-        console.log(todo);
         return <Todo key={todo.id} todo={todo} />
       })}
     </div>

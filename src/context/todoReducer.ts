@@ -6,12 +6,12 @@ const todoReducer = (
       return (a.done === b.done) ? 0 : a.done ? 1 : -1;
     });
   };
-  
+
   switch (action.type) {
     case 'SET_TODOS':
       return sortTodos(action.payload);
     case 'ADD_TODO': 
-      return [...state, action.payload];
+      return sortTodos([...state, action.payload]);
     case 'UPDATE_TODO':
       const updatedTodos = state.map(todo => {
         if (todo.id !== action.payload.id) {
