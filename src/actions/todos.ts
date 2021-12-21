@@ -26,7 +26,7 @@ export const updateTodoAction = async (todo : iTodoWithSteps) => {
 
 export const deleteTodoAction = async (id : number) => {
   return await api(`/todo/${String(id)}`, 'DELETE')
-  .then((res : any) => {
+  .then((res : iRes) => {
     if (res.status !== 202) throw res;
     return res;
   });
@@ -34,16 +34,33 @@ export const deleteTodoAction = async (id : number) => {
 
 export const resetTodoAction = async (id : number) => {
   return await api(`/todo/${String(id)}/reset`, 'PUT')
-  .then((res : any) => {
+  .then((res : iResWithTodo) => {
     if (res.status !== 202) throw res;
     return res;
   });
-}
+};
+
 
 export const addStepAction = async ({step, todoId} : {step: string; todoId: number}) => {
   return await api(`/todo/${String(todoId)}/step`, 'POST', {step, done: false})
   .then((res : iResWithStep) => {
     if (res.status !== 201) throw res;
     return res;
+  });
+};
+
+export const deleteStepAction = async (stepId : number, todoId: number) => {
+  return await api(`/todo/${String(todoId)}/step/${String(stepId)}`, 'DELETE')
+  .then((res : iRes) => {
+    if (res.status !== 202) throw res;
+    return;
+  });
+};
+
+export const updateStepAction = async (body : iStep) => {
+  return await api(`/todo/${String(body.todoId)}/step/${String(body.id)}`, 'PUT', body)
+  .then((res : iResWithStep) => {
+    if (res.status !== 202) throw res;
+    return res.step;
   });
 };

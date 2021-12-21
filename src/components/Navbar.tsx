@@ -26,7 +26,7 @@ const Navbar = () => {
   }, [showMenu]);
 
   return (
-    <div className='container bg-sky-400 flex flex-row items-center gap-2 pr-2'>
+    <div className='container fixed top-0 bg-sky-400 flex flex-row items-center gap-2 pr-2'>
       <p className='font-sans p-4 text-white flex-grow'>
         {login ? 'Welcome back!' : 'Log in or create an account'}
       </p>

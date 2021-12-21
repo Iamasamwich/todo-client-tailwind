@@ -10,7 +10,7 @@ import Context from '../context/Context';
 import ShowSteps from './ShowSteps';
 
 const Todo = ({todo} : {todo: iTodoWithSteps}) => {
-  const {appStatusDispatch, todosDispatch} = useContext(Context);
+  const {appStatusDispatch, todosDispatch, todoToUpdateDispatch, pageDispatch} = useContext(Context);
   const [showSteps, setShowSteps] = useState(false);
 
   const showCompleted = () => {
@@ -47,16 +47,12 @@ const Todo = ({todo} : {todo: iTodoWithSteps}) => {
     return text;
   };
 
-
-
   const handleUpdateTodo = (todo : iTodoWithSteps) => {
     appStatusDispatch({type: 'STATUS', payload: 'loading'});
     updateTodoAction(todo)
-    .then((res : any) => {
-      console.log(res);
-      
+    .then((res : iResWithTodo) => {
       appStatusDispatch({type: 'STATUS', payload: null});
-      todosDispatch({type: 'UPDATE_TODO', payload: todo});
+      todosDispatch({type: 'UPDATE_TODO', payload: res.todo});
     })
     .catch(err => {
       appStatusDispatch({type: 'STATUS', payload: err.status});
@@ -64,7 +60,6 @@ const Todo = ({todo} : {todo: iTodoWithSteps}) => {
   };
 
   const handleDelete = async (todo : iTodoWithSteps) => {
-    console.log('deleting todo id ', todo.id);
     appStatusDispatch({type: 'STATUS', payload: 'loading'});
     await deleteTodoAction(todo.id)
     .then(res => {
@@ -82,7 +77,6 @@ const Todo = ({todo} : {todo: iTodoWithSteps}) => {
     .then((res : iResWithTodo) => {
       appStatusDispatch({type: 'STATUS', payload: null});
       todosDispatch({type: 'UPDATE_TODO', payload: res.todo})
-      console.log(res);
       return;
     })
     .catch(err => {
@@ -90,9 +84,14 @@ const Todo = ({todo} : {todo: iTodoWithSteps}) => {
     });
   };
 
+  const handleEditTodo = (todo : iTodoWithSteps) => {
+    todoToUpdateDispatch({type: 'TODO_TO_UPDATE', payload: todo});
+    pageDispatch({type: 'CHANGE_PAGE', payload: 'editTodo'});
+  };
+
   return (
-    <div className='container none flex flex-row'>
-      <div className='basis-1/6 bg-orange-200 flex flex-col items-center'>
+    <div className='container none flex flex-row mb-3 bg-slate-100'>
+      <div className='basis-1/6 flex flex-col items-center'>
         {!todo.done ? 
           <CheckIcon 
             className={`${styles.todoIcon} text-green-500`} 
@@ -109,22 +108,22 @@ const Todo = ({todo} : {todo: iTodoWithSteps}) => {
           onClick={() => setShowSteps(!showSteps)}
         />
       </div>
-      <div className='bg-blue-200 w-full flex flex-row flex-wrap'>
-        <div className='w-full bg-orange-200 flex items-center justify-start pl-3'>
+      <div className='w-full flex flex-row flex-wrap'>
+        <div className='w-full flex items-center justify-start pl-3'>
           <p className='text-lg font-bold'>{todo.todo}</p>
         </div>
-        <div className='w-1/2 flex items-center justify-start text-left pl-1 bg-green-200'>
+        <div className='w-1/2 flex items-center justify-start text-left pl-1'>
           <p>{showDueDate()}</p>
         </div>
-        <div className='w-1/2 flex items-center justify-end pr-1 bg-red-200 text-right'>
+        <div className='w-1/2 flex items-center justify-end pr-1 text-right'>
           <p>{showCompleted()}</p>
         </div>
         {showSteps && <ShowSteps todoId={todo.id} steps={todo.steps} />}
       </div>
-      <div className='basis-1/6 bg-green-300 flex flex-col items-center'>
+      <div className='basis-1/6 flex flex-col items-center'>
         <PencilIcon 
           className={styles.todoIcon} 
-          onClick={() => console.log('edit todo clicked')}
+          onClick={() => handleEditTodo(todo)}
         />
         <RefreshIcon 
           className={styles.todoIcon} 

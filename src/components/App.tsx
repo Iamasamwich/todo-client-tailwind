@@ -3,6 +3,7 @@ import api from '../api';
 import Context from '../context/Context';
 import AddTodo from './AddTodo';
 import CreateAccount from './CreateAccount';
+import EditTodo from './EditTodo';
 import Layout from './Layout';
 import Login from './Login';
 import ShowTodos from './ShowTodos';
@@ -36,7 +37,7 @@ const App = () => {
         case 'addTodo':
           return <AddTodo />
         case 'editTodo':
-          return <div>edit todo</div>
+          return <EditTodo />
         case 'editUser':
           return <div>Edit user</div>
         case 'updatePassword':
