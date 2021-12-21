@@ -65,6 +65,7 @@ const CreateAccount = () => {
           className={`${styles.input} ${nameError && styles.inputError}`}
           value={name}
           onChange={e => setName(e.target.value)}
+          autoFocus
         />
         {nameError && 
           <p className={styles.inputAdvice}>Enter a name</p>

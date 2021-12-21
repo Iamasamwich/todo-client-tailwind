@@ -70,13 +70,17 @@ interface iRes {
   message: string;
 };
 
-interface iTodoRes extends iRes {
+interface iResWithTodos extends iRes {
   todos: iTodoWithSteps[];
 };
 
-interface iTodoNewRes extends iRes {
+interface iResWithTodo extends iRes {
   todo: iTodoWithSteps;
 };
+
+interface iResWithStep extends iRes {
+  step: iStep;
+}
 
 type iAction = 
   {

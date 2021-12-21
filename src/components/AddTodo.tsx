@@ -61,6 +61,7 @@ const AddTodo = () => {
           className={`${styles.input} ${todoError && styles.inputError}`}
           value={todo}
           onChange={e => setTodo(e.target.value)}
+          autoFocus
         />
         {todoError && 
           <p 

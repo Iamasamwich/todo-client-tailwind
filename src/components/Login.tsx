@@ -51,6 +51,7 @@ const Login = () => {
           value={email} 
           onChange={e => setEmail(e.target.value)} 
           className={`${styles.input} ${emailError && styles.inputError}`}
+          autoFocus
         />
         {emailError && 
           <p

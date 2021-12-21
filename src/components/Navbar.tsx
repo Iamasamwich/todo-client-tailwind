@@ -5,7 +5,7 @@ import HomeIcon from '@heroicons/react/solid/HomeIcon';
 import MenuIcon from '@heroicons/react/solid/MenuIcon';
 
 const Navbar = () => {
-  const {login, page, loginDispatch, pageDispatch} = useContext(Context);
+  const {login, page, loginDispatch, pageDispatch, todosDispatch, todosFetchedDispatch} = useContext(Context);
 
   const [showMenu, setShowMenu] = useState (false);;
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -35,6 +35,8 @@ const Navbar = () => {
         <MenuIcon 
           onClick={() => {
             loginDispatch({type: "LOGIN", payload: false});
+            todosDispatch({type: 'SET_TODOS', payload: []});
+            todosFetchedDispatch({type: 'TODOS_FETCHED', payload: false});
             pageDispatch({type: 'CHANGE_PAGE', payload: 'home'});
           }} 
           className='h-6 w-6 text-white' 
